@@ -25,7 +25,7 @@ public class CargaUnificadaRuleRestController {
     private DroolsRuleService droolsRuleService = new DroolsRuleService();
 
     @PostMapping("/ruta")
-    public ResponseEntity<CargaUnificadaRuleResponse> evaluate(@RequestBody CargaUnificadaRuleRequest request) {
+    public CargaUnificadaRuleResponse evaluate(@RequestBody CargaUnificadaRuleRequest request) {
 
         CargaUnificadaRuleResponse cargaUnificadaRuleResponse = new CargaUnificadaRuleResponse();
 
@@ -75,7 +75,7 @@ public class CargaUnificadaRuleRestController {
                 }).collect(Collectors.toList());
 
 
-        return ResponseEntity.ok(cargaUnificadaRuleResponse);
+        return cargaUnificadaRuleResponse;
 
     }
 
