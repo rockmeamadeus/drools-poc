@@ -20,22 +20,24 @@ import java.nio.file.Paths;
 @RestController
 @RequestMapping("upload")
 public class UploadRuleRestController {
-   // private static final String UPLOAD_PATH = "/src/main/resources/static/upload/";
+    private static final String UPLOAD_PATH = "/src/main/resources/static/upload/";
 
     @Autowired
     private DroolsRuleService droolsRuleService;
 
     @PostMapping("/")
     public void addRule(@RequestParam("file") MultipartFile file) {
-        try {
+       /* try {
             droolsRuleService.add(file.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        guardarArchivo(file);
 
     }
 
-  /*  private static String guardarArchivo(MultipartFile file) {
+    private static String guardarArchivo(MultipartFile file) {
         String res;
         if (file.isEmpty()) {
             res = "Archivo no encontrado";
@@ -54,11 +56,11 @@ public class UploadRuleRestController {
 
         }
         return res;
-    }*/
+    }
 
-   /* private static String getDrl(String filePath) {
+    private static String getDrl(String filePath) {
         DroolsBeanFactory dbf = new DroolsBeanFactory();
         return dbf.getDrlFromExcel(filePath);
 
-    }*/
+    }
 }

@@ -1,10 +1,10 @@
 package com.example.controllers;
 
 import com.example.cargaUnificada.resource.request.CargaUnificadaRuleRequest;
+import com.example.cargaUnificada.resource.request.Ot;
 import com.example.cargaUnificada.resource.request.ServicioRuta;
 import com.example.cargaUnificada.resource.response.Actividad;
 import com.example.cargaUnificada.resource.response.CargaUnificadaRuleResponse;
-import com.example.cargaUnificada.resource.response.Ot;
 import com.example.ruleEngine.drools.resource.service.DroolsRuleService;
 import com.example.utils.DrlManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "cargaunificada")
@@ -28,39 +29,53 @@ public class CargaUnificadaRuleRestController {
         CargaUnificadaRuleResponse cargaUnificadaRuleResponse = new CargaUnificadaRuleResponse();
 
         request.getServicioRutas().
-                stream().map(droolsRuleService::test).
-                map(ServicioRuta.class::cast).
-                map(response -> {
+
+                stream()
+                .peek((servicioRuta) -> {
+                    System.out.println("***inicio****");
+                    System.out.println(servicioRuta.getIdServicio());
+                    System.out.println("****fin inicio****");
+                }).
+                map(sr -> {
+
                     com.example.cargaUnificada.resource.response.ServicioRuta servicioRuta = new com.example.cargaUnificada.resource.response.ServicioRuta();
-                    servicioRuta.setCodServicio(response.getCodServicio());
-                    servicioRuta.setCodProducto(response.getCodProducto());
-                    servicioRuta.setIdServicio(response.getIdServicio());
+                    servicioRuta.setCodServicio(sr.getCodServicio());
+                    servicioRuta.setCodProducto(sr.getCodProducto());
+                    servicioRuta.setIdServicio(sr.getIdServicio());
 
-                    response.getOts().stream().map(ot -> {
+                    sr.getOts().stream().
+                            map(droolsRuleService::test).
+                            map(Ot.class::cast).
+                            map(ot -> {
 
-                        Ot ot1 = new Ot();
+                                com.example.cargaUnificada.resource.response.Ot ot1 = new com.example.cargaUnificada.resource.response.Ot();
 
-                        ot1.setIdOT(ot.getIdOT());
-                        ot1.setCodOT(ot.getCodOT());
-                        ot1.setCodTipoOT(ot.getCodTipoOT());
+                                ot1.setCodTipoOT(ot.getCodTipoOT());
+                                ot1.setCodOT(ot.getCodOT());
+                                ot1.setIdOT(ot.getIdOT());
 
-                        ot.getActividades().stream().map(actividad -> {
+                                ot.getActividades().stream().map(actividad -> {
+                                    Actividad actividad1 = new Actividad();
 
-                            Actividad actividad1 = new Actividad();
-                            actividad1.setCodActividad(actividad.getCodActividad());
+                                    actividad1.setCodActividad(actividad.getCodActividad());
+                                    ot1.getActividades().add(actividad1);
 
-                            ot1.getActividades().add(actividad1);
-                            servicioRuta.getOts().add(ot1);
+                                    return null;
+                                }).collect(Collectors.toList());
 
-                            return null;
-                        });
+                                servicioRuta.getOts().add(ot1);
 
-                        return null;
-                    });
+                                cargaUnificadaRuleResponse.getServicioRutas().add(servicioRuta);
+
+                                return null;
+                            }).collect(Collectors.toList());
 
                     cargaUnificadaRuleResponse.getServicioRutas().add(servicioRuta);
+
                     return null;
-                });
+
+                }).collect(Collectors.toList());
+
 
         return cargaUnificadaRuleResponse;
 
