@@ -32,11 +32,7 @@ public class CargaUnificadaRuleRestController {
         request.getServicioRutas().
 
                 stream()
-                .peek((servicioRuta) -> {
-                    System.out.println("***inicio****");
-                    System.out.println(servicioRuta.getIdServicio());
-                    System.out.println("****fin inicio****");
-                }).
+                .peek((servicioRuta) -> System.out.println("procesando id de servicio : " + servicioRuta.getIdServicio())).
                 map(sr -> {
 
                     com.example.cargaUnificada.resource.response.ServicioRuta servicioRuta = new com.example.cargaUnificada.resource.response.ServicioRuta();
@@ -45,6 +41,7 @@ public class CargaUnificadaRuleRestController {
                     servicioRuta.setIdServicio(sr.getIdServicio());
 
                     sr.getOts().stream().
+                            peek((ot) -> System.out.println("procesando Ot ID : " + ot.getIdOT())).
                             map(droolsRuleService::test).
                             map(Ot.class::cast).
                             map(ot -> {
@@ -55,14 +52,16 @@ public class CargaUnificadaRuleRestController {
                                 ot1.setCodOT(ot.getCodOT());
                                 ot1.setIdOT(ot.getIdOT());
 
-                                ot.getActividades().stream().map(actividad -> {
-                                    Actividad actividad1 = new Actividad();
+                                ot.getActividades().stream().
+                                        peek((actividad) -> System.out.println("procesando actividad : " + actividad.getCodActividad())).
+                                        map(actividad -> {
+                                            Actividad actividad1 = new Actividad();
 
-                                    actividad1.setCodActividad(actividad.getCodActividad());
-                                    ot1.getActividades().add(actividad1);
+                                            actividad1.setCodActividad(actividad.getCodActividad());
+                                            ot1.getActividades().add(actividad1);
 
-                                    return null;
-                                }).collect(Collectors.toList());
+                                            return null;
+                                        }).collect(Collectors.toList());
 
                                 servicioRuta.getOts().add(ot1);
 
