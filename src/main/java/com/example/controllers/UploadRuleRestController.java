@@ -4,6 +4,7 @@ import com.example.config.DroolsBeanFactory;
 import com.example.ruleEngine.drools.resource.service.DroolsRuleService;
 import com.example.utils.DrlManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,11 +23,11 @@ import java.nio.file.Paths;
 public class UploadRuleRestController {
     private static final String UPLOAD_PATH = "/src/main/resources/static/upload/";
 
-    @Autowired
-    private DroolsRuleService droolsRuleService;
+    //@Autowired
+   // private DroolsRuleService droolsRuleService;
 
     @PostMapping("/")
-    public void addRule(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity addRule(@RequestParam("file") MultipartFile file) {
        /* try {
             droolsRuleService.add(file.getBytes());
         } catch (IOException e) {
@@ -34,6 +35,8 @@ public class UploadRuleRestController {
         }*/
 
         guardarArchivo(file);
+
+        return ResponseEntity.ok(null);
 
     }
 

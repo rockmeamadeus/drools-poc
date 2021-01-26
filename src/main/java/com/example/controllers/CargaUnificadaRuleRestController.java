@@ -8,6 +8,7 @@ import com.example.cargaUnificada.resource.response.CargaUnificadaRuleResponse;
 import com.example.ruleEngine.drools.resource.service.DroolsRuleService;
 import com.example.utils.DrlManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,11 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "cargaunificada")
 public class CargaUnificadaRuleRestController {
 
-    @Autowired
-    private DroolsRuleService droolsRuleService;
+
+    private DroolsRuleService droolsRuleService = new DroolsRuleService();
 
     @PostMapping("/ruta")
-    public CargaUnificadaRuleResponse evaluate(@RequestBody CargaUnificadaRuleRequest request) {
+    public ResponseEntity<CargaUnificadaRuleResponse> evaluate(@RequestBody CargaUnificadaRuleRequest request) {
 
         CargaUnificadaRuleResponse cargaUnificadaRuleResponse = new CargaUnificadaRuleResponse();
 
@@ -77,7 +78,7 @@ public class CargaUnificadaRuleRestController {
                 }).collect(Collectors.toList());
 
 
-        return cargaUnificadaRuleResponse;
+        return ResponseEntity.ok(cargaUnificadaRuleResponse);
 
     }
 

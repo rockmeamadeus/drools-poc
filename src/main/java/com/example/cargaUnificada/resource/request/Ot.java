@@ -45,4 +45,16 @@ public class Ot {
     public void setActividades(List<Actividad> actividades) {
         this.actividades = actividades;
     }
+
+    public void agregarActividad(String actividad) {
+        Actividad actividad1 = new Actividad();
+        actividad1.setCodActividad(actividad);
+        this.getActividades().add(actividad1);
+
+    }
+
+    public void removerActividad(String actividad) {
+        this.getActividades().removeIf(actividad1 -> actividad.equalsIgnoreCase(actividad1.getCodActividad()));
+
+    }
 }

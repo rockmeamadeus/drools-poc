@@ -1,7 +1,5 @@
 package com.example.cargaUnificada.resource.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 

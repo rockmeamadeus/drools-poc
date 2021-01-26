@@ -13,12 +13,12 @@ public class DroolsRuleService {
 
     private KieSession kSession;
 
-    @Autowired
-    private DroolsBeanFactory droolsBeanFactory;
+    //@Autowired
+   // private DroolsBeanFactory droolsBeanFactory;
 
     public Object test(Object object) {
 
-        kSession = droolsBeanFactory.getKieSession(DrlManager.getDrl("rule1"));
+        kSession = new DroolsBeanFactory().getKieSession(DrlManager.getDrl("rule1"));
         kSession.insert(object);
         kSession.fireAllRules();
         kSession.dispose();
