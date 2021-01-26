@@ -66,7 +66,6 @@ public class CargaUnificadaRuleRestController {
 
                                 servicioRuta.getOts().add(ot1);
 
-                                cargaUnificadaRuleResponse.getServicioRutas().add(servicioRuta);
 
                                 return null;
                             }).collect(Collectors.toList());
