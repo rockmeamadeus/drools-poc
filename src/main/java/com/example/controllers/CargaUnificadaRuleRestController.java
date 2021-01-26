@@ -45,7 +45,6 @@ public class CargaUnificadaRuleRestController {
                             map(droolsRuleService::test).
                             map(Ot.class::cast).
                             map(ot -> {
-
                                 com.example.cargaUnificada.resource.response.Ot ot1 = new com.example.cargaUnificada.resource.response.Ot();
 
                                 ot1.setCodTipoOT(ot.getCodTipoOT());
