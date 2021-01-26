@@ -1,6 +1,5 @@
 package com.example.cargaUnificada.resource.request;
 
-import com.example.cargaUnificada.resource.response.Ot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +35,11 @@ public class ServicioRuta {
 		this.codProducto = codProducto;
 	}
 
-	public List<com.example.cargaUnificada.resource.response.Ot> getOts() {
+	public List<Ot> getOts() {
 		return Ots;
 	}
 
 	public void setOts(List<Ot> ots) {
-		this.Ots = ots;
+		Ots = ots;
 	}
 }

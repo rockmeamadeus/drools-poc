@@ -13,11 +13,13 @@ import org.kie.internal.builder.DecisionTableConfiguration;
 import org.kie.internal.builder.DecisionTableInputType;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
 import org.kie.internal.io.ResourceFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+@Service
 public class DroolsBeanFactory {
 
     private KieServices kieServices= KieServices.Factory.get();
-
 
     public KieSession getKieSession(Resource dt) {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem()
@@ -46,6 +48,20 @@ public class DroolsBeanFactory {
         configuration.setInputType(DecisionTableInputType.XLS);
 
         Resource dt = ResourceFactory.newClassPathResource(excelFile, getClass());
+
+        DecisionTableProviderImpl decisionTableProvider = new DecisionTableProviderImpl();
+
+        String drl = decisionTableProvider.loadFromResource(dt, null);
+
+        return drl;
+    }
+
+
+    public String getDrlFromExcel(byte[]  excelFile) {
+        DecisionTableConfiguration configuration = KnowledgeBuilderFactory.newDecisionTableConfiguration();
+        configuration.setInputType(DecisionTableInputType.XLS);
+
+        Resource dt = ResourceFactory.newByteArrayResource(excelFile);
 
         DecisionTableProviderImpl decisionTableProvider = new DecisionTableProviderImpl();
 
