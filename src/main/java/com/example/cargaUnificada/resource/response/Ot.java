@@ -11,6 +11,14 @@ public class Ot {
 
 	private String codTipoOT;
 
+	private String entidad;
+
+	private String producto;
+
+	private double valorMinimo;
+
+	private double valorMaximo;
+
 	private List<Actividad> actividades = new ArrayList<>();
 
 	public String getIdOT() {
@@ -43,5 +51,37 @@ public class Ot {
 
 	public void setActividades(List<Actividad> actividades) {
 		this.actividades = actividades;
+	}
+
+	public String getEntidad() {
+		return entidad;
+	}
+
+	public void setEntidad(String entidad) {
+		this.entidad = entidad;
+	}
+
+	public double getValorMinimo() {
+		return valorMinimo;
+	}
+
+	public void setValorMinimo(double valorMinimo) {
+		this.valorMinimo = valorMinimo;
+	}
+
+	public double getValorMaximo() {
+		return valorMaximo;
+	}
+
+	public void setValorMaximo(double valorMaximo) {
+		this.valorMaximo = valorMaximo;
+	}
+
+	public String getProducto() {
+		return producto;
+	}
+
+	public void setProducto(String producto) {
+		this.producto = producto;
 	}
 }

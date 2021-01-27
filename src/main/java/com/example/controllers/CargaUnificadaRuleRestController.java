@@ -1,20 +1,16 @@
 package com.example.controllers;
 
 import com.example.cargaUnificada.resource.request.CargaUnificadaRuleRequest;
-import com.example.cargaUnificada.resource.request.Ot;
-import com.example.cargaUnificada.resource.request.ServicioRuta;
 import com.example.cargaUnificada.resource.response.Actividad;
 import com.example.cargaUnificada.resource.response.CargaUnificadaRuleResponse;
+import com.example.cargaUnificada.resource.rule.model.Ot;
 import com.example.ruleEngine.drools.resource.service.DroolsRuleService;
-import com.example.utils.DrlManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,62 +18,80 @@ import java.util.stream.Collectors;
 public class CargaUnificadaRuleRestController {
 
 
-    private DroolsRuleService droolsRuleService = new DroolsRuleService();
+	private DroolsRuleService droolsRuleService = new DroolsRuleService();
 
-    @PostMapping("/ruta")
-    public CargaUnificadaRuleResponse evaluate(@RequestBody CargaUnificadaRuleRequest request) {
+	@PostMapping("/ruta")
+	public CargaUnificadaRuleResponse evaluate(@RequestBody @Validated CargaUnificadaRuleRequest request) {
 
-        CargaUnificadaRuleResponse cargaUnificadaRuleResponse = new CargaUnificadaRuleResponse();
+		CargaUnificadaRuleResponse cargaUnificadaRuleResponse = new CargaUnificadaRuleResponse();
 
-        request.getServicioRutas().
+		request.getServicioRutas().
+				stream().
+				peek((servicioRuta) -> System.out.println("procesando id de servicio : " + servicioRuta.getIdServicio())).
+				forEach(servicioRuta -> {
+					com.example.cargaUnificada.resource.response.ServicioRuta servicioRutaResponse = new com.example.cargaUnificada.resource.response.ServicioRuta();
+					servicioRutaResponse.setCodServicio(servicioRuta.getCodServicio());
+					servicioRutaResponse.setCodProducto(servicioRuta.getCodProducto());
+					servicioRutaResponse.setIdServicio(servicioRuta.getIdServicio());
 
-                stream()
-                .peek((servicioRuta) -> System.out.println("procesando id de servicio : " + servicioRuta.getIdServicio())).
-                map(sr -> {
+					servicioRuta.getOts().stream().
+							peek((ot) -> System.out.println("procesando Ot ID : " + ot.getIdOT())).
+							map(ot -> {
 
-                    com.example.cargaUnificada.resource.response.ServicioRuta servicioRuta = new com.example.cargaUnificada.resource.response.ServicioRuta();
-                    servicioRuta.setCodServicio(sr.getCodServicio());
-                    servicioRuta.setCodProducto(sr.getCodProducto());
-                    servicioRuta.setIdServicio(sr.getIdServicio());
+								com.example.cargaUnificada.resource.rule.model.Ot otToEvaluate =
+										new com.example.cargaUnificada.resource.rule.model.Ot();
 
-                    sr.getOts().stream().
-                            peek((ot) -> System.out.println("procesando Ot ID : " + ot.getIdOT())).
-                            map(droolsRuleService::test).
-                            map(Ot.class::cast).
-                            map(ot -> {
-                                com.example.cargaUnificada.resource.response.Ot ot1 = new com.example.cargaUnificada.resource.response.Ot();
+								otToEvaluate.setIdOT(ot.getIdOT());
+								otToEvaluate.setCodOT(ot.getCodOT());
+								otToEvaluate.setEntidad(ot.getEntidad());
+								otToEvaluate.setProducto(ot.getProducto());
+								otToEvaluate.setCodTipoOT(ot.getCodTipoOT());
 
-                                ot1.setCodTipoOT(ot.getCodTipoOT());
-                                ot1.setCodOT(ot.getCodOT());
-                                ot1.setIdOT(ot.getIdOT());
+								ot.getActividades().stream().forEach(actividad -> {
 
-                                ot.getActividades().stream().
-                                        peek((actividad) -> System.out.println("procesando actividad : " + actividad.getCodActividad())).
-                                        map(actividad -> {
-                                            Actividad actividad1 = new Actividad();
+									com.example.cargaUnificada.resource.rule.model.Actividad actividad1 =
+											new com.example.cargaUnificada.resource.rule.model.Actividad();
 
-                                            actividad1.setCodActividad(actividad.getCodActividad());
-                                            ot1.getActividades().add(actividad1);
+									actividad1.setCodActividad(actividad.getCodActividad());
 
-                                            return null;
-                                        }).collect(Collectors.toList());
+									otToEvaluate.getActividades().add(actividad1);
 
-                                servicioRuta.getOts().add(ot1);
+								});
+
+								return otToEvaluate;
+							}).
+							map(droolsRuleService::execute).
+							map(Ot.class::cast).
+							forEach(ot -> {
+								com.example.cargaUnificada.resource.response.Ot otResponse = new com.example.cargaUnificada.resource.response.Ot();
+
+								otResponse.setCodTipoOT(ot.getCodTipoOT());
+								otResponse.setCodOT(ot.getCodOT());
+								otResponse.setIdOT(ot.getIdOT());
+								otResponse.setValorMinimo(ot.getValorMinimo());
+								otResponse.setValorMaximo(ot.getValorMaximo());
+								otResponse.setProducto(ot.getProducto());
+								otResponse.setEntidad(ot.getEntidad());
+
+								ot.getActividades().stream().
+										peek((actividad) -> System.out.println("procesando actividad : " + actividad.getCodActividad())).
+										forEach(actividad -> {
+											Actividad actividad1 = new Actividad();
+
+											actividad1.setCodActividad(actividad.getCodActividad());
+											otResponse.getActividades().add(actividad1);
 
 
-                                return null;
-                            }).collect(Collectors.toList());
+										});
 
-                    cargaUnificadaRuleResponse.getServicioRutas().add(servicioRuta);
+								servicioRutaResponse.getOts().add(otResponse);
 
-                    return null;
+							});
+					cargaUnificadaRuleResponse.getServicioRutas().add(servicioRutaResponse);
+				});
 
-                }).collect(Collectors.toList());
-
-
-        return cargaUnificadaRuleResponse;
-
-    }
+		return cargaUnificadaRuleResponse;
+	}
 
 }
 

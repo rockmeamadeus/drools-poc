@@ -12,6 +12,10 @@ public class Ot {
 
     private String codTipoOT;
 
+    private String entidad;
+
+    private String producto;
+
     private List<Actividad> actividades = new ArrayList<>();
 
     public String getIdOT() {
@@ -46,15 +50,19 @@ public class Ot {
         this.actividades = actividades;
     }
 
-    public void agregarActividad(String actividad) {
-        Actividad actividad1 = new Actividad();
-        actividad1.setCodActividad(actividad);
-        this.getActividades().add(actividad1);
-
+    public String getEntidad() {
+        return entidad;
     }
 
-    public void removerActividad(String actividad) {
-        this.getActividades().removeIf(actividad1 -> actividad.equalsIgnoreCase(actividad1.getCodActividad()));
+    public void setEntidad(String entidad) {
+        this.entidad = entidad;
+    }
 
+    public String getProducto() {
+        return producto;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
     }
 }

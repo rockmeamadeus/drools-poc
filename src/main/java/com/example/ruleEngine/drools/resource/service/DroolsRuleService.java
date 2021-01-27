@@ -16,7 +16,7 @@ public class DroolsRuleService {
     //@Autowired
    // private DroolsBeanFactory droolsBeanFactory;
 
-    public Object test(Object object) {
+    public Object execute(Object object) {
 
         kSession = new DroolsBeanFactory().getKieSession(DrlManager.getDrl("rule1"));
         kSession.insert(object);
