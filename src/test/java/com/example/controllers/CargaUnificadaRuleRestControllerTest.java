@@ -106,7 +106,8 @@ class CargaUnificadaRuleRestControllerTest {
 		Ot ot = new Ot();
 		ot.setCodTipoOT("REC");
 		ot.setIdOT("a50394de-2e7c-4db6-9b49-0f20397dc156");
-		ot.setCodOT("4645123131354");		ot.setProducto("Entrega Divisa Extranjera");
+		ot.setCodOT("4645123131354");
+		ot.setProducto("Entrega Divisa Extranjera");
 		ot.setEntidad("Santander");
 
 		Actividad actividad1 = new Actividad();
