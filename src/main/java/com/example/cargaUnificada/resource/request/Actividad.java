@@ -1,14 +1,10 @@
 package com.example.cargaUnificada.resource.request;
 
+import lombok.Data;
+
+@Data
 public class Actividad {
 
 	private String codActividad;
 
-	public String getCodActividad() {
-		return codActividad;
-	}
-
-	public void setCodActividad(String codActividad) {
-		this.codActividad = codActividad;
-	}
 }

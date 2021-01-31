@@ -1,16 +1,21 @@
 package com.example.cargaUnificada.resource.rule.model;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Data
 public class Ot {
 
-	private String idOT;
+	private String id;
 
-	private String codOT;
+	private String codigo;
 
-	private String codTipoOT;
+	private String codigo_tipo;
 
 	private String entidad;
 
@@ -22,79 +27,27 @@ public class Ot {
 
 	private List<Actividad> actividades = new ArrayList<>();
 
-	public String getIdOT() {
-		return idOT;
-	}
 
-	public void setIdOT(String idOT) {
-		this.idOT = idOT;
-	}
-
-	public String getCodOT() {
-		return codOT;
-	}
-
-	public void setCodOT(String codOT) {
-		this.codOT = codOT;
-	}
-
-	public String getCodTipoOT() {
-		return codTipoOT;
-	}
-
-	public void setCodTipoOT(String codTipoOT) {
-		this.codTipoOT = codTipoOT;
-	}
-
-	public List<Actividad> getActividades() {
-		return actividades;
-	}
-
-	public void setActividades(List<Actividad> actividades) {
-		this.actividades = actividades;
-	}
-
-	public void agregarActividad(String actividad) {
-		Actividad actividad1 = new Actividad();
-		actividad1.setCodActividad(actividad);
-		this.getActividades().add(actividad1);
+	public void agregar_actividades(List<String> actividades) {
+		actividades.stream().forEach(actividad -> {
+			Actividad actividad1 = new Actividad();
+			actividad1.setCodActividad(actividad);
+			this.actividades.add(actividad1);
+		});
 
 	}
 
-	public void removerActividad(String actividad) {
-		this.getActividades().removeIf(actividad1 -> actividad.equalsIgnoreCase(actividad1.getCodActividad()));
-
+	public void remover_actividades(List<String> actividades) {
+		this.actividades.removeIf(actividad1 -> actividades.contains(actividad1));
 	}
 
-	public String getEntidad() {
-		return entidad;
-	}
-
-	public void setEntidad(String entidad) {
-		this.entidad = entidad;
-	}
-
-	public double getValorMinimo() {
-		return valorMinimo;
-	}
-
-	public void setValorMinimo(double valorMinimo) {
-		this.valorMinimo = valorMinimo;
-	}
-
-	public double getValorMaximo() {
-		return valorMaximo;
-	}
-
-	public void setValorMaximo(double valorMaximo) {
+	public void establecer_valor_maximo(double valorMaximo) {
 		this.valorMaximo = valorMaximo;
 	}
 
-	public String getProducto() {
-		return producto;
+	public void establecer_valor_minimo(double valorMinimo) {
+		this.valorMinimo = valorMinimo;
 	}
 
-	public void setProducto(String producto) {
-		this.producto = producto;
-	}
+
 }

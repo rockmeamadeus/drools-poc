@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping(path = "cargaunificada")
 public class CargaUnificadaRuleRestController {
@@ -41,11 +39,11 @@ public class CargaUnificadaRuleRestController {
 								com.example.cargaUnificada.resource.rule.model.Ot otToEvaluate =
 										new com.example.cargaUnificada.resource.rule.model.Ot();
 
-								otToEvaluate.setIdOT(ot.getIdOT());
-								otToEvaluate.setCodOT(ot.getCodOT());
+								otToEvaluate.setId(ot.getIdOT());
+								otToEvaluate.setCodigo(ot.getCodOT());
 								otToEvaluate.setEntidad(ot.getEntidad());
 								otToEvaluate.setProducto(ot.getProducto());
-								otToEvaluate.setCodTipoOT(ot.getCodTipoOT());
+								otToEvaluate.setCodigo_tipo(ot.getCodTipoOT());
 
 								ot.getActividades().stream().forEach(actividad -> {
 
@@ -65,23 +63,21 @@ public class CargaUnificadaRuleRestController {
 							forEach(ot -> {
 								com.example.cargaUnificada.resource.response.Ot otResponse = new com.example.cargaUnificada.resource.response.Ot();
 
-								otResponse.setCodTipoOT(ot.getCodTipoOT());
-								otResponse.setCodOT(ot.getCodOT());
-								otResponse.setIdOT(ot.getIdOT());
+								otResponse.setCodTipoOT(ot.getCodigo_tipo());
+								otResponse.setCodOT(ot.getCodigo());
+								otResponse.setIdOT(ot.getId());
 								otResponse.setValorMinimo(ot.getValorMinimo());
 								otResponse.setValorMaximo(ot.getValorMaximo());
 								otResponse.setProducto(ot.getProducto());
 								otResponse.setEntidad(ot.getEntidad());
 
 								ot.getActividades().stream().
-										peek((actividad) -> System.out.println("procesando actividad : " + actividad.getCodActividad())).
+										peek((actividad) -> System.out.println("procesando actividad devuelta por la rule : " + actividad.getCodActividad())).
 										forEach(actividad -> {
 											Actividad actividad1 = new Actividad();
 
 											actividad1.setCodActividad(actividad.getCodActividad());
 											otResponse.getActividades().add(actividad1);
-
-
 										});
 
 								servicioRutaResponse.getOts().add(otResponse);
@@ -90,6 +86,7 @@ public class CargaUnificadaRuleRestController {
 					cargaUnificadaRuleResponse.getServicioRutas().add(servicioRutaResponse);
 				});
 
+		System.out.println(cargaUnificadaRuleResponse);
 		return cargaUnificadaRuleResponse;
 	}
 
