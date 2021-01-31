@@ -46,10 +46,11 @@ public class UploadRuleRestController {
             res = "Archivo no encontrado";
         } else {
             try {
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get(new File(".").getCanonicalPath() + UPLOAD_PATH + file.getOriginalFilename());
-                Files.write(path, bytes);
-                String drl = getDrl("static/upload/" + file.getOriginalFilename());
+           //     byte[] bytes = file.getBytes();
+              //  Path path = Paths.get(new File(".").getCanonicalPath() + UPLOAD_PATH + file.getOriginalFilename());
+            //    Files.write(path, bytes);
+             //   String drl = getDrl("static/upload/" + file.getOriginalFilename());
+                String drl =  new DroolsBeanFactory().getDrlFromExcel(file.getBytes());
                 DrlManager.insertDrl("rule1", drl);
                 res = "Archivo subido correctamente" + "\n " + drl;
 
