@@ -38,7 +38,7 @@ public class Ot {
 	}
 
 	public void remover_actividades(List<String> actividades) {
-		this.actividades.removeIf(actividad1 -> actividades.contains(actividad1));
+		this.actividades.removeIf(actividad1 -> actividades.contains(actividad1.getCodActividad()));
 	}
 
 	public void establecer_valor_maximo(double valorMaximo) {
