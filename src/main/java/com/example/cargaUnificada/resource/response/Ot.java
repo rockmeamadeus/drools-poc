@@ -16,8 +16,6 @@ public class Ot {
 
 	private String entidad;
 
-	private String producto;
-
 	private double valorMinimo;
 
 	private double valorMaximo;

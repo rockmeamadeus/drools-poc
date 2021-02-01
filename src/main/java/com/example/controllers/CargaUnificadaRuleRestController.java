@@ -4,6 +4,7 @@ import com.example.cargaUnificada.resource.request.CargaUnificadaRuleRequest;
 import com.example.cargaUnificada.resource.response.Actividad;
 import com.example.cargaUnificada.resource.response.CargaUnificadaRuleResponse;
 import com.example.cargaUnificada.resource.rule.model.Ot;
+import com.example.cargaUnificada.resource.rule.model.ServicioRuta;
 import com.example.ruleEngine.drools.resource.service.DroolsRuleService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +43,15 @@ public class CargaUnificadaRuleRestController {
 								otToEvaluate.setId(ot.getIdOT());
 								otToEvaluate.setCodigo(ot.getCodOT());
 								otToEvaluate.setEntidad(ot.getEntidad());
-								otToEvaluate.setProducto(ot.getProducto());
-								otToEvaluate.setCodigo_tipo(ot.getCodTipoOT());
+ 								otToEvaluate.setCodigo_tipo(ot.getCodTipoOT());
+
+								ServicioRuta servicioRuta1 = new ServicioRuta();
+
+								servicioRuta1.setCodigo_producto(servicioRuta.getCodProducto());
+								servicioRuta1.setCodigo_servicio(servicioRuta.getCodServicio());
+								servicioRuta1.setId_servicio(servicioRuta.getIdServicio());
+
+								otToEvaluate.setServicio_ruta(servicioRuta1);
 
 								ot.getActividades().stream().forEach(actividad -> {
 
@@ -68,8 +76,7 @@ public class CargaUnificadaRuleRestController {
 								otResponse.setIdOT(ot.getId());
 								otResponse.setValorMinimo(ot.getValorMinimo());
 								otResponse.setValorMaximo(ot.getValorMaximo());
-								otResponse.setProducto(ot.getProducto());
-								otResponse.setEntidad(ot.getEntidad());
+ 								otResponse.setEntidad(ot.getEntidad());
 
 								ot.getActividades().stream().
 										peek((actividad) -> System.out.println("procesando actividad devuelta por la rule : " + actividad.getCodActividad())).

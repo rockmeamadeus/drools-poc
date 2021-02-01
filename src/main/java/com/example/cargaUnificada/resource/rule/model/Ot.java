@@ -17,11 +17,11 @@ public class Ot {
 
 	private String entidad;
 
-	private String producto;
-
 	private double valorMinimo;
 
 	private double valorMaximo;
+
+	private ServicioRuta servicio_ruta;
 
 	private List<Actividad> actividades = new ArrayList<>();
 

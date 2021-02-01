@@ -46,7 +46,6 @@ class CargaUnificadaRuleRestControllerTest {
 				Files.readAllBytes(Paths.get("src/test/resources/Ot-addActividad_multiple_rules.xlsx"))
 		);
 
-
 		mockMvc.perform(multipart("/upload/").file(file))
 				.andExpect(status().isOk());
 
@@ -54,7 +53,7 @@ class CargaUnificadaRuleRestControllerTest {
 
 		ServicioRuta servicioRuta = new ServicioRuta();
 
-		servicioRuta.setCodProducto("1");
+		servicioRuta.setCodProducto("Entrega de Otros");
 		servicioRuta.setCodServicio("29023URY");
 		servicioRuta.setIdServicio("73cd92b8-4cda-4084-8d20-bbf2cb064e03");
 
@@ -62,7 +61,6 @@ class CargaUnificadaRuleRestControllerTest {
 		ot.setCodTipoOT("ENT");
 		ot.setIdOT("xxxx");
 		ot.setCodOT("12345");
-		ot.setProducto("Entrega de Otros");
 		ot.setEntidad("Santander");
 
 		Actividad actividad1 = new Actividad();
@@ -91,7 +89,7 @@ class CargaUnificadaRuleRestControllerTest {
 				.andExpect(jsonPath("$.servicioRutas", hasSize(1)))
 				.andExpect(jsonPath("$.servicioRutas[0].idServicio", is(equalTo("73cd92b8-4cda-4084-8d20-bbf2cb064e03"))))
 				.andExpect(jsonPath("$.servicioRutas[0].codServicio", is(equalTo("29023URY"))))
-				.andExpect(jsonPath("$.servicioRutas[0].codProducto", is(equalTo("1"))))
+				.andExpect(jsonPath("$.servicioRutas[0].codProducto", is(equalTo("Entrega de Otros"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots", is(notNullValue())))
 				.andExpect(jsonPath("$.servicioRutas[0].ots").isArray())
 				.andExpect(jsonPath("$.servicioRutas[0].ots", hasSize(1)))
@@ -100,7 +98,6 @@ class CargaUnificadaRuleRestControllerTest {
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].actividades", hasSize(4)))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].idOT", is(equalTo("xxxx"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].codOT", is(equalTo("12345"))))
-				.andExpect(jsonPath("$.servicioRutas[0].ots[0].producto", is(equalTo("Entrega de Otros"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].entidad", is(equalTo("Santander"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].valorMinimo", is(equalTo(101.12))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].valorMaximo", is(equalTo(751.123))))
@@ -133,7 +130,7 @@ class CargaUnificadaRuleRestControllerTest {
 
 		ServicioRuta servicioRuta = new ServicioRuta();
 
-		servicioRuta.setCodProducto("1");
+		servicioRuta.setCodProducto("Entrega de Otros");
 		servicioRuta.setCodServicio("29023URY");
 		servicioRuta.setIdServicio("73cd92b8-4cda-4084-8d20-bbf2cb064e03");
 
@@ -141,7 +138,6 @@ class CargaUnificadaRuleRestControllerTest {
 		ot.setCodTipoOT("ENT");
 		ot.setIdOT("a50394de-2e7c-4db6-9b49-0f20397dc156");
 		ot.setCodOT("12345");
-		ot.setProducto("Entrega de Otros");
 		ot.setEntidad("Santander");
 
 		Actividad actividad1 = new Actividad();
@@ -170,7 +166,7 @@ class CargaUnificadaRuleRestControllerTest {
 				.andExpect(jsonPath("$.servicioRutas", hasSize(1)))
 				.andExpect(jsonPath("$.servicioRutas[0].idServicio", is(equalTo("73cd92b8-4cda-4084-8d20-bbf2cb064e03"))))
 				.andExpect(jsonPath("$.servicioRutas[0].codServicio", is(equalTo("29023URY"))))
-				.andExpect(jsonPath("$.servicioRutas[0].codProducto", is(equalTo("1"))))
+				.andExpect(jsonPath("$.servicioRutas[0].codProducto", is(equalTo("Entrega de Otros"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots", is(notNullValue())))
 				.andExpect(jsonPath("$.servicioRutas[0].ots").isArray())
 				.andExpect(jsonPath("$.servicioRutas[0].ots", hasSize(1)))
@@ -179,7 +175,6 @@ class CargaUnificadaRuleRestControllerTest {
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].actividades", hasSize(4)))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].idOT", is(equalTo("a50394de-2e7c-4db6-9b49-0f20397dc156"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].codOT", is(equalTo("12345"))))
-				.andExpect(jsonPath("$.servicioRutas[0].ots[0].producto", is(equalTo("Entrega de Otros"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].entidad", is(equalTo("Santander"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].valorMinimo", is(equalTo(101.12))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].valorMaximo", is(equalTo(751.123))))
@@ -212,7 +207,7 @@ class CargaUnificadaRuleRestControllerTest {
 
 		ServicioRuta servicioRuta = new ServicioRuta();
 
-		servicioRuta.setCodProducto("1");
+		servicioRuta.setCodProducto("Entrega de Otros");
 		servicioRuta.setCodServicio("29023URY");
 		servicioRuta.setIdServicio("73cd92b8-4cda-4084-8d20-bbf2cb064e03");
 
@@ -220,7 +215,6 @@ class CargaUnificadaRuleRestControllerTest {
 		ot.setCodTipoOT("ENT");
 		ot.setIdOT("a50394de-2e7c-4db6-9b49-0f20397dc157");
 		ot.setCodOT("12345");
-		ot.setProducto("Entrega de Otros");
 		ot.setEntidad("Santander");
 
 		Actividad actividad1 = new Actividad();
@@ -249,7 +243,7 @@ class CargaUnificadaRuleRestControllerTest {
 				.andExpect(jsonPath("$.servicioRutas", hasSize(1)))
 				.andExpect(jsonPath("$.servicioRutas[0].idServicio", is(equalTo("73cd92b8-4cda-4084-8d20-bbf2cb064e03"))))
 				.andExpect(jsonPath("$.servicioRutas[0].codServicio", is(equalTo("29023URY"))))
-				.andExpect(jsonPath("$.servicioRutas[0].codProducto", is(equalTo("1"))))
+				.andExpect(jsonPath("$.servicioRutas[0].codProducto", is(equalTo("Entrega de Otros"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots", is(notNullValue())))
 				.andExpect(jsonPath("$.servicioRutas[0].ots").isArray())
 				.andExpect(jsonPath("$.servicioRutas[0].ots", hasSize(1)))
@@ -258,7 +252,6 @@ class CargaUnificadaRuleRestControllerTest {
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].actividades", hasSize(4)))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].idOT", is(equalTo("a50394de-2e7c-4db6-9b49-0f20397dc157"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].codOT", is(equalTo("12345"))))
-				.andExpect(jsonPath("$.servicioRutas[0].ots[0].producto", is(equalTo("Entrega de Otros"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].entidad", is(equalTo("Santander"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].valorMinimo", is(equalTo(101.12))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].valorMaximo", is(equalTo(751.123))))
@@ -290,7 +283,7 @@ class CargaUnificadaRuleRestControllerTest {
 
 		ServicioRuta servicioRuta = new ServicioRuta();
 
-		servicioRuta.setCodProducto("1");
+		servicioRuta.setCodProducto("xxxx");
 		servicioRuta.setCodServicio("29023URY");
 		servicioRuta.setIdServicio("73cd92b8-4cda-4084-8d20-bbf2cb064e03");
 
@@ -298,7 +291,6 @@ class CargaUnificadaRuleRestControllerTest {
 		ot.setCodTipoOT("ENT");
 		ot.setIdOT("a50394de-2e7c-4db6-9b49-0f20397dc157");
 		ot.setCodOT("12345");
-		ot.setProducto("xxxx");
 		ot.setEntidad("Santander");
 
 		Actividad actividad1 = new Actividad();
@@ -327,7 +319,7 @@ class CargaUnificadaRuleRestControllerTest {
 				.andExpect(jsonPath("$.servicioRutas", hasSize(1)))
 				.andExpect(jsonPath("$.servicioRutas[0].idServicio", is(equalTo("73cd92b8-4cda-4084-8d20-bbf2cb064e03"))))
 				.andExpect(jsonPath("$.servicioRutas[0].codServicio", is(equalTo("29023URY"))))
-				.andExpect(jsonPath("$.servicioRutas[0].codProducto", is(equalTo("1"))))
+				.andExpect(jsonPath("$.servicioRutas[0].codProducto", is(equalTo("xxxx"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots", is(notNullValue())))
 				.andExpect(jsonPath("$.servicioRutas[0].ots").isArray())
 				.andExpect(jsonPath("$.servicioRutas[0].ots", hasSize(1)))
@@ -336,7 +328,6 @@ class CargaUnificadaRuleRestControllerTest {
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].actividades", hasSize(4)))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].idOT", is(equalTo("a50394de-2e7c-4db6-9b49-0f20397dc157"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].codOT", is(equalTo("12345"))))
-				.andExpect(jsonPath("$.servicioRutas[0].ots[0].producto", is(equalTo("xxxx"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].entidad", is(equalTo("Santander"))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].valorMinimo", is(equalTo(0.0))))
 				.andExpect(jsonPath("$.servicioRutas[0].ots[0].valorMaximo", is(equalTo(0.0))))

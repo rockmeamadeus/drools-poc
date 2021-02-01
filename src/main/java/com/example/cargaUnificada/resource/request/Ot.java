@@ -17,8 +17,6 @@ public class Ot {
 
     private String entidad;
 
-    private String producto;
-
     private List<Actividad> actividades = new ArrayList<>();
 
 }
