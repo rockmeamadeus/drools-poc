@@ -201,7 +201,7 @@ class CargaUnificadaRuleRestControllerTest {
 	}
 
 	@Test
-	void given_servicio_ruta_then_rule2_should_be_skipped_2() throws Exception {
+	void given_servicio_ruta_then_rule2_should_be_skipped_due_of_second_value_in_array() throws Exception {
 
 		MockMultipartFile file
 				= new MockMultipartFile(
